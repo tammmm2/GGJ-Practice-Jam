@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class GameManager : MonoBehaviour
     SoundManager sm;
 
     private bool isGameOver = false;
+
+    public TMP_Text shotsLeft;
+    public TMP_Text gameOver;
+
 
     private void Awake()
     {
@@ -29,10 +35,13 @@ public class GameManager : MonoBehaviour
     {
         spider = FindObjectOfType<Spider>();
         sm = FindObjectOfType<SoundManager>();
+        gameOver.enabled = false;
     }
 
     private void Update()
     {
+        shotsLeft.text = "Shots:\n" + spider.GetShotsLeft().ToString();
+
         if (isGameOver && Input.GetKeyDown(KeyCode.R))
         {
             isGameOver = false;
@@ -61,6 +70,7 @@ public class GameManager : MonoBehaviour
         Camera.main.transform.SetParent(null, true);
         isGameOver = true;
         spider.SetGameOver();
+        gameOver.enabled = true;
     }
 
     public void NextLevel()

@@ -54,7 +54,6 @@ public class Spider : MonoBehaviour
         webLine.enabled = false;
         webLineCollider.enabled = false;
         sm = FindObjectOfType<SoundManager>();
-        sm.PlayGamePlayMusic();
         Cursor.visible = false;
     }
 

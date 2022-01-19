@@ -15,7 +15,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] static AudioClip gameOverMusic;
     [SerializeField] static AudioClip gameplayMusic;
 
-    static AudioSource audioSource;
+    [SerializeField] AudioSource audioSource;
 
     private static SoundManager sm;
 
@@ -47,8 +47,6 @@ public class SoundManager : MonoBehaviour
         collect = Resources.Load<AudioClip>("collect");
         bounce = Resources.Load<AudioClip>("bounce");
         mushroom = Resources.Load<AudioClip>("mushroom");
-
-        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     public void PlayShootSound()
@@ -89,8 +87,12 @@ public class SoundManager : MonoBehaviour
 
     public void PlayGamePlayMusic()
     {
-        audioSource.Stop();
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
         audioSource.PlayOneShot(gameplayMusic);
         audioSource.loop = true;
+        audioSource.playOnAwake = true;
     }
 }
